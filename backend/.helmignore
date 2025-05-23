@@ -1,0 +1,16 @@
+# Patterns to ignore when packaging Helm charts
+*.jar
+*.war
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.class
+*.log
+*.DS_Store
+*.swp
+*.bak
+*.tmp
+.idea/
+target/
+demo-0.0.1-SNAPSHOT.jar

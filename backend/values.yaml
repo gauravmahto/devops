@@ -1,0 +1,50 @@
+replicaCount: 1
+
+image:
+  repository: docker.io/library/my-backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "250m"
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+
+db:
+  host: postgres-service
+  port: 5432
+  name: testdb
+  user: admin
+  password: password
+
+postgres:
+  name: postgres
+  replicas: 1
+  image: postgres:14
+  secretName: postgres-secret
+  serviceName: postgres-service
+  db: testdb
+  user: admin
+  password: password
+
+frontend:
+  name: frontend-app
+  replicas: 1
+  image: docker.io/library/frontend-app:latest
+  imagePullPolicy: Never
+  serviceName: frontend-service
+  serviceType: ClusterIP
+
+ingress:
+  name: my-app-ingress
+  host: myapp.local
+
+backend:
+  serviceName: my-backend-service
